@@ -11,15 +11,17 @@ This endpoint takes in a body of a reciept formatted in JSON. This endpoint will
 -   > This endpoint returns a JSON object with the ID of the reciept that was generated
 -   > This endpoint will then store that ID and calculated Points Value in an internal memory database
 -   > This endpoint will return status 200 on success, and status 400 on fail.
--   -   > Status 400 will be a result of incorrect input. All inputs must follow the schema specified in [schemas.js](./schemas.js)
+    >
+    > -   > Status 400 will be a result of incorrect input. All inputs must follow the schema specified in [schemas.js](./schemas.js)
 
 ### GET - /receipts/{id}/points
 
-This endpoint takes in an ID in teh URL, and will return the reward points value for that ID.
+This endpoint takes in an ID in the URL, and will return the reward points value for that ID.
 
 -   > This endpoint returns a JSON object with the format: {ID: Points}
--   > This endpoing will return status 200 on success, and status 400 on fail
--   -   > Status 400 will be a result of incorrect input, OR if the ID does not exist in our database.
+-   > This endpoint will return status 200 on success, and status 400 on fail
+    >
+    > -   > Status 400 will be a result of incorrect input, OR if the ID does not exist in our database.
 
 ---
 
