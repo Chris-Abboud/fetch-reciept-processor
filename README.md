@@ -1,6 +1,6 @@
 # Overview
 
-This Repository is my solution to the Fetch Rewards take home assessment. This problem was solved using a Node Express.js App. Although not specified in the requirements, I assumed that endpoints must require input validation and automated unit testing would be required for something nearing production ready standards.
+This Repository is my solution to the Fetch Rewards take home assessment. This problem was solved using a Node Express.js App using Node V20. Although not specified in the requirements, I assumed that endpoints must require input validation and automated unit testing would be required for something nearing production ready standards.
 
 ## Endpoints:
 
