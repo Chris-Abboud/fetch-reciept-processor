@@ -1,0 +1,19 @@
+version: "3"
+services:
+    app:
+        build: .
+        command: ["npm", "start"]
+        ports:
+            - "3000:3000"
+
+        volumes:
+            - .:/usr/src/app
+
+    test:
+        build: .
+        command: ["npx", "jest"]
+
+        volumes:
+            - .:/usr/src/app
+        depends_on:
+            - app

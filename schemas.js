@@ -18,6 +18,8 @@ const receiptSchema = Joi.object({
 		.pattern(/^[\w\s\-&]+$/)
 		.required(),
 
+	// Would need to verify how date is done.
+	// Is it YEAR-MONTH-DAY or YEAR-DAY-MONTH
 	purchaseDate: Joi.date().required(),
 
 	purchaseTime: Joi.string()

@@ -1,54 +1,60 @@
 const { v4: uuidv4 } = require("uuid");
 const express = require("express");
 const { receiptSchema, idSchema } = require("./schemas.js");
-
+const { calculatePointsValue } = require("./helpers.js");
+const { addToDatabase, getFromDatabase } = require("./database.js");
 const app = express();
 app.use(express.json());
 
-const PORT = 3000;
+// Custom error handling for invalid JSON - 400 Bad Request
+app.use((err, req, res, next) => {
+	if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
+		// If the error is a SyntaxError due to invalid JSON
+		return res.status(400).json({ message: "Inputs must be JSON format." });
+	}
+	next(); // Pass to the next middleware if the error is not related to JSON parsing
+});
 
-recieptDatabase = {};
-// Use dictionary for memory store since temporary
+/*
+    Get request to get reciept points.
+    Input parameter schema ID in URL
+
+    Response status 200 & points value if successful, 400 if invalid reciept id.
+*/
 
 app.get("/receipts/:id/points", (req, res) => {
-	// pull the ID from our database
 	const { id } = req.params;
 	const { error } = idSchema.validate(id);
 
-	// Always do validation. Docs has only response as error 400
-	// If validation fails, or doesn't exist,  we will just say it doesn't exist.
-	// Would ask Product owner how they want input validation handled
-	if (error || !recieptDatabase[id]) {
+	if (error || !getFromDatabase(id)) {
 		return res.status(400).send("No receipt found for that id");
 	}
 
-	return res.status(200).send({ points: recieptDatabase[id] });
+	return res.status(200).send({ points: getFromDatabase(id) });
 });
 
-app.post("/receipts/process", (req, res) => {
-	// verify the payload with recieptSchema
-	console.log(req.body);
+/*
+    POST request to process reciept.
+    Input parameter schema RECIEPT in body
+
+    Response status 200 & reciept ID if successful, 400 if invalid reciept params.
+*/
+app.post("/receipts/process", async (req, res) => {
 	const { error } = receiptSchema.validate(req.body);
 
 	if (error) {
 		return res.status(400).send("The receipt is invalid");
 	}
 
-	const awardedPoints = calculatePointsValue(req.body);
+	const awardedPoints = await calculatePointsValue(req.body);
+
 	const recieptID = uuidv4();
 
-	recieptDatabase[recieptID] = awardedPoints;
+	addToDatabase(recieptID, awardedPoints);
 
 	return res.status(200).send({ id: recieptID });
 });
 
-app.listen(PORT, (error) => {
-	if (error) {
-		return console.log("Error: ", error);
-	}
-	console.log("Server is listening on port " + PORT);
-});
+var server = app.listen(3000);
 
-function calculatePointsValue(reciept) {
-	return 10;
-}
+module.exports = { app, server };
