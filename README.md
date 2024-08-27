@@ -29,17 +29,17 @@ This endpoint takes in an ID in the URL, and will return the reward points value
 
 I have created a simple to use docker file that will be used to create our container. This app will run on port 3000, please ensure your local port 3000 is not occupied by another application. After git cloning the repository in your local system, ensure docker desktop is installed, then run the following command:
 
-1. docker-compose build - This will build or images
+1. `docker compose build` - This will build or images
 
 To Run the application, do the following:
 
-1. docker-compose up app
+1. `docker compose up app`
 
 I have also taken the time to create an automatic testing suite.
 
 # Run The Automated Test Suite:
 
-1. docker-compose up test
+1. `docker compose up test`
 
 You should see a total of 11/11 successful tests.
 

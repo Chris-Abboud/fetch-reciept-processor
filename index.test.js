@@ -7,6 +7,7 @@ jest.mock("./database.js");
 afterAll(() => {
 	server.close();
 });
+
 describe("POST /receipts/process", () => {
 	describe("Given a valid reciept", () => {
 		test("Should respond with  reciept ID", async () => {
