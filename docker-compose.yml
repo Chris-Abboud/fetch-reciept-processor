@@ -15,5 +15,3 @@ services:
 
         volumes:
             - .:/usr/src/app
-        depends_on:
-            - app
