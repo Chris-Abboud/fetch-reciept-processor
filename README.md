@@ -35,7 +35,7 @@ To Run the application, do the following:
 
 1. `docker compose up app`
 
-After running, you can use postman to interact with it by sending a get requires to the url: `localhost:3000/reciepts/{id}/points` or post request to the url `localhost:3000/receipts/process` with the reciept as the body expressed as a JSON.
+While running, you can use postman to interact with the server by sending a get requires to the url: `localhost:3000/reciepts/{id}/points` or post request to the url `localhost:3000/receipts/process` with the reciept as the body expressed as a JSON.
 
 I have also taken the time to create an automatic testing suite.
 
